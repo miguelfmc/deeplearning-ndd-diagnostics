@@ -3,4 +3,4 @@
 # Exclude VSCode settings from source control
 /.vscode/
 # Exclude notebook checkpoints from source control
-/.ipynb_checkpoints/
+/notebooks/.ipynb_checkpoints/
