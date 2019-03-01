@@ -6,3 +6,5 @@
 /notebooks/.ipynb_checkpoints/
 # Exclude troubleshooting
 /src/troubleshooting/
+# Exclude models
+/trained_models/
