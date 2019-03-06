@@ -8,3 +8,5 @@
 /src/troubleshooting/
 # Exclude models
 /trained_models/
+# Exclude images
+/img/
