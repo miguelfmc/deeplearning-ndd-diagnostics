@@ -4,6 +4,9 @@
 /.vscode/
 # Exclude notebook checkpoints from source control
 /notebooks/.ipynb_checkpoints/
+# Exclude old and note strictly necessary notebooks
+/notebooks/extra/
+/notebooks/old/
 # Exclude troubleshooting
 /src/troubleshooting/
 # Exclude models
