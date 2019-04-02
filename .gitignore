@@ -13,3 +13,5 @@
 /trained_models/
 # Exclude images
 /img/
+# Exclude others
+conv_model_details.txt
