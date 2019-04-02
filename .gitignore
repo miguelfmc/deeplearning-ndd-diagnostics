@@ -14,4 +14,4 @@
 # Exclude images
 /img/
 # Exclude others
-conv_model_details.txt
+conv_models_details.txt
