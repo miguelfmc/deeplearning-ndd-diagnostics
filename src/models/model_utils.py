@@ -45,13 +45,13 @@ def load_dataset(dataset_name='spectrograms-dataset', mix=True):
         Y_train_orig = train_data['Y_train']
         Z_train_orig = train_data['Z_train']
 
-        X_train_orig = X_train_orig.reshape(X_train_orig.shape[0], X_train_orig[1], X_train_orig.shape[2], -1)
+        X_train_orig = X_train_orig.reshape(X_train_orig.shape[0], X_train_orig[1], X_train_orig.shape[2], 1)
 
         X_dev_orig = dev_data['X_dev']
         Y_dev_orig = dev_data['Y_dev']
         Z_dev_orig = dev_data['Z_dev']
 
-        X_dev_orig = X_dev_orig.reshape(X_dev_orig.shape[0], X_dev_orig[1], X_dev_orig.shape[2], -1)
+        X_dev_orig = X_dev_orig.reshape(X_dev_orig.shape[0], X_dev_orig[1], X_dev_orig.shape[2], 1)
 
     # test data always the same
     test_data = np.load(os.path.join(in_dir, 'test.npz'))
