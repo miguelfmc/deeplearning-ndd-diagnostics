@@ -1,10 +1,11 @@
-"""Defines metrics
+"""Defines metrics to be used during training and evaluation of keras model
 """
 
 import tensorflow.keras.backend as K 
 
 def precision(y_true, y_pred):
-    """Precision metric for keras model
+    """
+    Precision metric for keras model
     """
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
@@ -13,7 +14,8 @@ def precision(y_true, y_pred):
 
 
 def recall(y_true, y_pred):
-    """Recall metric for keras model
+    """
+    Recall metric for keras model
     """
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     total_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
@@ -22,8 +24,9 @@ def recall(y_true, y_pred):
 
 
 def f1_score(y_true, y_pred):
-    """Computes the F score for keras model
-    The F score is the weighted harmonic mean of precision and recall.
+    """
+    Computes the F1 score for keras model
+    The F1 score is the weighted harmonic mean of precision and recall.
     """
     # If there are no true positives, fix the F score at 0 like sklearn.
     if K.sum(K.round(K.clip(y_true, 0, 1))) == 0:
