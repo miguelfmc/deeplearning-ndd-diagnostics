@@ -13,5 +13,9 @@
 /trained_models/
 # Exclude images
 /img/
+# Exclude pycache
+/src/__pycache__/
+/src/data/__pycache__/
+/src/models/__pycache__/
 # Exclude others
 conv_models_details.txt
