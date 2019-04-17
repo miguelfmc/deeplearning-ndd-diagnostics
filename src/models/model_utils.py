@@ -1,4 +1,4 @@
-"""Useful functions to interact with tensorflow.keras models and with the training and testing dataset
+""" Useful functions to interact with tensorflow.keras models and with the training and testing dataset
 """
 
 import os
@@ -9,19 +9,19 @@ from tensorflow.keras.models import model_from_json
 import pickle
 
 
-def load_dataset(dataset_name='spectrograms-dataset', mix=True):
-    """Loads one of the datasets: spectrograms or scalograms,
+def load_dataset(dataset_name='scalograms-dataset', mix=True):
+    """ Loads one of the datasets: spectrograms, scalograms or signals,
     either with mix of patients between the train and dev sets or not
 
     Arguments
-        dataset_name: string defining the dataset
-        mix: boolean that indicates if a mixed train-dev set should be loaded or not
+        dataset_name: string defining the dataset. Default is 'scalograms-dataset'
+        mix: boolean that indicates if a mixed train-dev set should be loaded or not. Default is False
             if set to True records from the same patients appear in both training and dev set
             if set to False 4 the dev set will be comprised of records from 4 patients that
                 will not appear in the train set
     
     Returns
-        X (images), Y (labels), Z (other info) of train, dev and test datasets as numpy ndarrays
+        X (2D or 1D images or data), Y (labels), Z (other info) of train, dev and test datasets as numpy ndarrays
     """
     in_dir = os.path.join('data', 'processed', dataset_name)
 
@@ -32,7 +32,7 @@ def load_dataset(dataset_name='spectrograms-dataset', mix=True):
         Y_orig = train_data['Y_train']
         Z_orig = train_data['Z_train']
 
-        X_orig = X_orig.reshape(X_orig.shape[0], X_orig.shape[1], X_orig.shape[2], 1)
+        X_orig = np.expand_dims(X_orig, axis=-1)
 
         # random state seed to always keep the same split
         X_train_orig, X_dev_orig, Y_train_orig, Y_dev_orig, Z_train_orig, Z_dev_orig = train_test_split(
@@ -45,13 +45,13 @@ def load_dataset(dataset_name='spectrograms-dataset', mix=True):
         Y_train_orig = train_data['Y_train']
         Z_train_orig = train_data['Z_train']
 
-        X_train_orig = X_train_orig.reshape(X_train_orig.shape[0], X_train_orig.shape[1], X_train_orig.shape[2], 1)
+        X_train_orig = np.expand_dims(X_train_orig, axis=-1)
 
         X_dev_orig = dev_data['X_dev']
         Y_dev_orig = dev_data['Y_dev']
         Z_dev_orig = dev_data['Z_dev']
 
-        X_dev_orig = X_dev_orig.reshape(X_dev_orig.shape[0], X_dev_orig.shape[1], X_dev_orig.shape[2], 1)
+        X_dev_orig = np.expand_dims(X_dev_orig, axis=-1)
 
     # test data always the same
     test_data = np.load(os.path.join(in_dir, 'test.npz'))
@@ -60,16 +60,21 @@ def load_dataset(dataset_name='spectrograms-dataset', mix=True):
     Y_test_orig = test_data['Y_test']
     Z_test_orig = test_data['Z_test']
 
-    X_test_orig = X_test_orig.reshape(X_test_orig.shape[0], X_test_orig.shape[1], X_test_orig.shape[2], 1)
+    X_test_orig = np.expand_dims(X_test_orig, axis=-1)
 
     return X_train_orig, Y_train_orig, Z_train_orig, X_dev_orig, Y_dev_orig, Z_dev_orig, X_test_orig, Y_test_orig, Z_test_orig
 
 
-def save_model(model, history, name):
+def save_model(model, history, name, out_dir):
     """
     Saves trained model architecture, history and weights as a JSON file with given name
+
+    Arguments
+        model: keras model to be saved
+        history: training history
+        name: string containing the name of the model
+        out_dir: string containing the path to the directory where the model will be saved
     """
-    out_dir = 'trained_models'
 
     # save model architecture
     model_json = model.to_json()
@@ -90,11 +95,14 @@ def save_model(model, history, name):
     return None
 
 
-def load_model(name):
+def load_model(name, in_dir):
     """
     Loads trained model with weights as well as its training history
+
+    Arguments
+        name: string, name of model to be loaded
+        in_dir: string, path of directory where the model is loaded from
     """
-    in_dir = 'trained_models'
     
     # load model architecture
     model_path = os.path.join(in_dir, name + '_arch.json')
@@ -142,7 +150,7 @@ def standardize_per_example(X):
     Returns:
         The standardized array of same dimensions
     """
-    maxes = X.max(axis=(1,2,3), keepdims=True)
-    mins = X.min(axis=(1,2,3), keepdims=True)
+    maxes = X.max(axis=tuple(range(1, X.ndim)), keepdims=True)
+    mins = X.min(axis=tuple(range(1, X.ndim)), keepdims=True)
     
     return X / (maxes - mins)
