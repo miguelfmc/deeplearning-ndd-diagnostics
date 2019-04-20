@@ -3,6 +3,7 @@
 
 import os
 import csv
+import datetime
 
 from tensorflow.keras import optimizers
 from .model_utils import load_dataset, save_model, load_model, redefine_labels, standardize_per_example
@@ -64,11 +65,12 @@ def train_disease(X_train, Y_train, X_dev, Y_dev, X_test, Y_test, get_model, dis
     # save model
     model_dir = os.path.join('trained_models', dataset_name.replace('-dataset', ''))
     model_name = get_model.__name__
-    name = model_name + '_' + disease
+    name = model_name + '_' + disease + '_' + \
+        datetime.datetime.now().strftime('%Y%m%d%H%M')
     
     save_model(model, history, name, model_dir)
     
-    # evaluate on dev and test
+    # evaluate
     train_evaluations = model.evaluate(X_train, Y_train)
     dev_evaluations = model.evaluate(X_dev, Y_dev)
     test_evaluations = model.evaluate(X_test, Y_test)
