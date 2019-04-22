@@ -6,10 +6,14 @@ This repository contains code, Jupyter notebooks and other resources correspondi
 
 The data used in this project comes from the Physionet ```gaitndd``` publicly available [database](https://physionet.org/physiobank/database/gaitndd/).
 
-Each record consists of two signals, each corresponding to a resistive ground force sensor in the left and right feet. The signals were gathered on a series of trials in which the subjects had to walk during five minutes. The subjects involved in the trials presented one of three neurodegenerative diseases: Amyotrophic Lateral Sclerosis (ALS), Huntington's disease or Parkinson's disease. A group of healthy control subjects was also included in the trials. More information on the experiments as well as further analysis and findings by its authors can be found in the link above or in the references.
+Each record consists of two signals, each corresponding to a resistive ground force sensor in the left and right feet. The signals were gathered on a series of trials in which the subjects had to walk during five minutes. The subjects involved in the trials presented one of three neurodegenerative diseases: Amyotrophic Lateral Sclerosis (ALS), Huntington's disease or Parkinson's disease. A group of healthy control subjects was also included in the trials.
+
+The motivation for this experiment had its roots on the effect that the above-mentioned diseases have on gait and mobility. More information on the experiments as well as further analysis and findings by its authors can be found in the link above or in the references.
 
 ## Data preprocessing
 
-The original signals from the Physionet gaitndd database will undergo a series of preprocessing steps, visualized in the image below, in order to build datasets that models can be trained on.
+The original signals from the Physionet gaitndd database will undergo a series of preprocessing steps, visualized in the image below, in order to build datasets with which models can be trained.
 
 <img align="center" src ="resources/data_preprocessing.png" />
+
+Three data "formats" have been devised. Two of them, spectrograms and scalograms, are a time-frequency (therefore two-dimensional) representation of the original one-dimensional data.
