@@ -10,4 +10,4 @@ The data used in this project comes from the Physionet ```gaitndd``` publicly av
 
 The original signals from the Physionet gaitndd database will undergo a series of preprocessing steps, visualized in the image below, in order to build datasets that models can be trained on.
 
-[Data preprocessing diagram](resources/data_preprocessing.png)
+![Data preprocessing diagram](resources/data_preprocessing.png)
