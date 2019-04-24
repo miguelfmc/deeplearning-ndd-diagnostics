@@ -102,6 +102,10 @@ def load_model(name, in_dir):
     Arguments
         name: string, name of model to be loaded
         in_dir: string, path of directory where the model is loaded from
+    
+    Returns
+        model: tensorflow keras model
+        history: training history
     """
     
     # load model architecture
